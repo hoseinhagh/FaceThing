@@ -1,8 +1,8 @@
 const canvas = document.getElementById("output");
 const video = document.getElementById("vidbox");
 const ctx = canvas.getContext('2d');
-canvas.width = 600;
-canvas.height = 400;
+canvas.width = 640;
+canvas.height = 480;
 let model = null;
 
 
@@ -11,18 +11,17 @@ async function detectAndDraw () {
         input: video
       });
 
-    ctx.drawImage(video,0,0,600,400);
+    ctx.drawImage(video,0,0,640,480);
     predictions.forEach(face => {
-        ctx.beginPath();
-        ctx.lineWidth = "4";
-        ctx.strokeStyle = "green";
-        ctx.rect(
-            face.boundingBox.topLeft[0],
-            face.boundingBox.topLeft[1],
-            face.boundingBox.bottomRight[0] - face.boundingBox.topLeft[0],
-            face.boundingBox.bottomRight[1] - face.boundingBox.topLeft[1]
-        );
-        ctx.stroke();
+        const keypoints = face.scaledMesh;
+        for (let i =0 ; i < keypoints.length; i++) {
+            const x = keypoints[i][0];
+            const y = keypoints[i][1];
+            ctx.beginPath();
+            ctx.arc(x,y,1,0,3 * Math.PI);
+            ctx.fillStyle = "aqua";
+            ctx.fill();
+        }
         
     });
     requestAnimationFrame(detectAndDraw);
