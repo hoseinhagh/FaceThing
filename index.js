@@ -11,6 +11,7 @@ async function detectAndDraw () {
         input: video
       });
 
+    ctx.drawImage(video,0,0,600,400);
     predictions.forEach(face => {
         ctx.beginPath();
         ctx.lineWidth = "4";
@@ -21,7 +22,6 @@ async function detectAndDraw () {
             face.boundingBox.bottomRight[0] - face.boundingBox.topLeft[0],
             face.boundingBox.bottomRight[1] - face.boundingBox.topLeft[1]
         );
-        ctx.drawImage(video,0,0,600,400);
         ctx.stroke();
         
     });
