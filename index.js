@@ -1,8 +1,8 @@
 const canvas = document.getElementById("output");
 const video = document.getElementById("vidbox");
 const ctx = canvas.getContext('2d');
-canvas.width = 640;
-canvas.height = 480;
+canvas.width = 480;
+canvas.height = 320;
 let model = null;
 
 
@@ -11,7 +11,7 @@ async function detectAndDraw () {
         input: video
       });
 
-    ctx.drawImage(video,0,0,640,480);
+    ctx.drawImage(video,0,0);
     predictions.forEach(face => {
         const keypoints = face.scaledMesh;
         for (let i =0 ; i < keypoints.length; i++) {
